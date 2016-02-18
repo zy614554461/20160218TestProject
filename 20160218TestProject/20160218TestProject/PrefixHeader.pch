@@ -1,0 +1,56 @@
+//
+//  PrefixHeader.pch
+//  20160218TestProject
+//
+//  Created by 张银 on 16/2/18.
+//  Copyright © 2016年 张银. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import "UIView+Extension.h"
+#import "ZBHttpTool.h"
+#import "MJExtension.h"
+#import "UIImageView+WebCache.h"
+#import "NSString+BYExtension.h"
+#import "UIImage+Extension.h"
+#import "AFNetworking.h"
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+//设备类型
+#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (IS_IPHONE && SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)
+
+//设备系统版本
+#define IOS8_OR_MORE [[UIDevice currentDevice].systemVersion floatValue]>=8.0
+#define IOS7 [[UIDevice currentDevice].systemVersion floatValue]>=7.0&&[[UIDevice currentDevice].systemVersion floatValue]<8.0
+
+//自定义Log
+#ifdef DEBUG //... 可变参数
+#define  HXLog(...) NSLog(@"%s %d \n %@ \n\n",__func__,__LINE__, [NSString stringWithFormat:__VA_ARGS__]);
+#define MyLog(...) NSLog(__VA_ARGS__)
+#else
+#define  HXLog(...)//NSLog(__VA_ARGS__)
+#define MyLog(...) //NSLog(__VA_ARGS__)
+#endif
+
+//定义随机颜色
+#define HMRandomColor [UIColor colorWithRed:arc4random_uniform(255)/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)/255.0 alpha:1]
+//RGB计算颜色
+#define HMColor(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]
+
+//后台字段的判空处理
+#define isNotNull(value)             (value && ![value isKindOfClass:[NSNull class]] && ![value isEqual:[NSNull null]])
+#define validStr(str)                (isNotNull(str) ? str : @"")
+#endif /* PrefixHeader_pch */
